@@ -1,0 +1,30 @@
+<h1 class="h1">Cart</h1>
+
+<div class="layout">
+  <section class="list">
+    <ng-container *ngIf="items$ | async as items">
+      <p class="empty" *ngIf="items.length === 0">
+        კალათა ცარიელია <a routerLink="/">დაბრუნდი პროდუქტებზე</a>
+      </p>
+
+      <app-cart-item
+        *ngFor="let item of items"
+        [item]="item"
+        (remove)="onRemove($event)"
+        (quantityChange)="onQuantityChange($event)"
+      ></app-cart-item>
+    </ng-container>
+  </section>
+
+  <aside class="summary">
+    <h3>Summary</h3>
+    <div class="row">
+      <span>Total:</span>
+      <strong>${{ total$ | async }}</strong>
+    </div>
+
+    <p class="muted">
+
+    </p>
+  </aside>
+</div>

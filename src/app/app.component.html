@@ -1,0 +1,27 @@
+<header class="header">
+  <div class="container header__inner">
+    <a routerLink="/" class="brand">E-Commerce</a>
+
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+      <a routerLink="/admin" routerLinkActive="active">Admin</a>
+
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        Cart
+        <!-- async pipe — observable- გამოყენება -->
+        <span class="badge">{{ (cartCount$ | async) ?? 0 }}</span>
+      </a>
+
+      <button class="btn ghost" type="button" (click)="toggleTheme()">
+        Theme
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="container main">
+ 
+  <router-outlet></router-outlet>
+</main>
+
+

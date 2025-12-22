@@ -1,0 +1,13 @@
+<h1 class="h1">Products</h1>
+
+<app-loader *ngIf="loading"></app-loader>
+
+<p class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
+
+<div class="grid" *ngIf="!loading && !errorMessage">
+  <app-product-card
+    *ngFor="let p of products"
+    [product]="p"
+    (addToCart)="onAddToCart($event)"
+  ></app-product-card>
+</div>

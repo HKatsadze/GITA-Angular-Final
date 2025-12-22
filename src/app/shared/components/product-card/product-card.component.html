@@ -1,0 +1,19 @@
+<article class="card">
+  <a [routerLink]="['/products', product.id]" class="card__image">
+    <img [src]="product.image" [alt]="product.title" />
+  </a>
+
+  <div class="card__body">
+    <h3 class="title" [title]="product.title">{{ product.title }}</h3>
+
+
+    <div class="price">${{ product.price }}</div>
+
+    <div class="actions">
+      
+      <button class="btn" type="button" (click)="addToCart.emit(product)">
+        Add to cart
+      </button>
+    </div>
+  </div>
+</article>

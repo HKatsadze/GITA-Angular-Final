@@ -1,0 +1,26 @@
+<div class="row">
+  <img class="img" [src]="item.product.image" [alt]="item.product.title" />
+
+  <div class="info">
+    <div class="name">{{ item.product.title }}</div>
+    <div class="muted">${{ item.product.price }} • {{ item.product.category }}</div>
+  </div>
+
+  <div class="qty">
+    <!-- Two-way binding: [ngModel] -->
+    <input
+      type="number"
+      min="1"
+      [(ngModel)]="localQuantity"
+      (ngModelChange)="onQuantityChange()"
+    />
+  </div>
+
+  <div class="sum">
+    ${{ item.product.price * item.quantity }}
+  </div>
+
+  <button class="btn danger" type="button" (click)="remove.emit(item.product.id)">
+    Remove
+  </button>
+</div>

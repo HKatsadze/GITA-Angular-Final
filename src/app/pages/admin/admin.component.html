@@ -1,0 +1,88 @@
+<h1 class="h1">Admin Panel</h1>
+
+<app-loader *ngIf="loading"></app-loader>
+
+<p class="msg ok" *ngIf="message">{{ message }}</p>
+<p class="msg err" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+<div class="layout" *ngIf="!loading">
+  <!--პროდუქტების სია -->
+  <section class="panel">
+    <h3>Products</h3>
+
+    <div class="list">
+      <div class="item" *ngFor="let p of products">
+        <div class="left">
+          <div class="name">{{ p.title }}</div>
+          <div class="muted">${{ p.price }}</div>
+        </div>
+
+        <div class="right">
+          <button class="btn ghost" type="button" (click)="startEdit(p)">Edit</button>
+          <button class="btn danger" type="button" (click)="deleteProduct(p.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reactive Form -->
+  <section class="panel">
+    <h3>{{ isEditMode ? 'Edit product (PUT)' : 'Add product (POST)' }}</h3>
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+      <label>
+        Title
+        <input type="text" formControlName="title" />
+        <small class="v" *ngIf="form.controls.title.touched && form.controls.title.invalid">
+          სათაური სავალდებულოა (მინ. 3 სიმბოლო).
+        </small>
+      </label>
+
+      <label>
+        Price
+        <input type="number" step="0.01" formControlName="price" />
+        <small class="v" *ngIf="form.controls.price.touched && form.controls.price.invalid">
+          ფასი უნდა იყოს მინიმუმ 0.01
+        </small>
+      </label>
+
+      <label>
+        Category
+        <input type="text" formControlName="category" />
+        <small class="v" *ngIf="form.controls.category.touched && form.controls.category.invalid">
+          კატეგორია სავალდებულოა.
+        </small>
+      </label>
+
+      <label>
+        Image URL
+        <input type="text" formControlName="image" />
+        <small class="v" *ngIf="form.controls.image.touched && form.controls.image.invalid">
+          სურათის URL სავალდებულოა.
+        </small>
+      </label>
+
+      <label>
+        Description
+        <textarea rows="5" formControlName="description"></textarea>
+        <small class="v" *ngIf="form.controls.description.touched && form.controls.description.invalid">
+          აღწერა სავალდებულოა (მინ. 10 სიმბოლო).
+        </small>
+      </label>
+
+      <div class="actions">
+        <button class="btn" type="submit">
+          {{ isEditMode ? 'Save changes' : 'Add product' }}
+        </button>
+
+        <button class="btn ghost" type="button" (click)="resetForm()">
+          Reset
+        </button>
+      </div>
+
+      <p class="hint">
+      
+      </p>
+    </form>
+  </section>
+</div>
